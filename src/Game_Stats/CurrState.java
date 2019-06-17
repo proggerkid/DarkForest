@@ -1,5 +1,9 @@
 package Game_Stats;
 
-public class CurrState {
-	public String currLocation;
+public abstract class CurrState {
+	public boolean checkState = false;
+	public String nextState;
+	
+	public abstract void update(String input);
+	public abstract void showEnvironment();
 }

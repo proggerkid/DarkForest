@@ -2,9 +2,9 @@ package Game_Stats.forestEntry;
 import Game_Stats.*;
 
 public class ForestEntry extends CurrState {
-	public ForestEntry() {
-		this.currLocation = "entry";
-	}
+	
+	
+	@Override
 	public void showEnvironment() {
 		System.out.println("*********************");
 		System.out.println("---Forest Entry---");
@@ -12,4 +12,15 @@ public class ForestEntry extends CurrState {
 		System.out.println("left path, middle path, right path");
 		System.out.println("*********************");
 	}
+	
+	@Override
+	public void update(String input) {
+		switch(input) {
+		case "left path":
+			this.nextState = "left path";
+			this.checkState = true;
+			break;
+		}
+	}
+
 }

@@ -1,5 +1,7 @@
+package DarkForest;
 import Game_Stats.*;
 import Game_Stats.forestEntry.ForestEntry;
+import Game_Stats.forestEntry.LeftPath;
 
 import java.util.Scanner;
 import Charakter.*;
@@ -7,11 +9,9 @@ import Charakter.*;
 public class Game {
 	private boolean close = false;
 	private String input = "";
-	private boolean testingGamestateInstance = true;
 	private Scanner scanner = new Scanner(System.in);
 	private Menue menue = new Menue();
 	public CurrState currState = new ForestEntry();
-	public ForestEntry gameState = null; 
 	private Charakter charakter = new Charakter();
 	
 	//start the game by calling this method in main function
@@ -20,15 +20,12 @@ public class Game {
 		//game loop
 		while(!close) {
 			
-			//choose the right game state type
-			if(testingGamestateInstance) {
-				if(this.currState instanceof ForestEntry) {
-					this.gameState = (ForestEntry) currState;
+			if(currState.checkState) {				
+				if(currState.nextState == "left path") {
+					currState = new LeftPath();
 				}
-				
-				testingGamestateInstance = false;
 			}
-			
+
 			//player enter commands
 			System.out.print("enter: ");
 			input = scanner.nextLine();
@@ -48,9 +45,11 @@ public class Game {
 				charakter.inventory.showItems();
 				break;
 			case "show env":
-				gameState.showEnvironment();
+				currState.showEnvironment();
 			}
 		
+			currState.update(input);
+			
 		}
 		
 		System.out.println("bye");
